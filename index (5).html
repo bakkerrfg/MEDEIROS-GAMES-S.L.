@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDEIROS GAMES S.L. | Digital Forge</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    },
+                    colors: {
+                        medeiros: {
+                            bg: '#0a0a0c', /* Deep industrial black */
+                            card: '#121217',
+                            border: '#27272a',
+                            accent: '#00d8ff', /* Electric Cyan */
+                            textMuted: '#a1a1aa',
+                            textWhite: '#fafafa'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #fafafa;
+        }
+        .bg-mesh {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 216, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 216, 255, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .spa-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .spa-view.active {
+            display: block;
+            opacity: 1;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border-radius: 0.25rem;
+            border: 1px solid #27272a;
+            background-color: #0a0a0c;
+            color: #fafafa;
+            transition: all 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #00d8ff;
+            box-shadow: 0 0 0 1px #00d8ff;
+        }
+        /* Custom scrollbar for a sleek look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00d8ff; 
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col bg-mesh relative">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-medeiros-bg/90 backdrop-blur-md border-b border-medeiros-border">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#home" class="flex items-center group">
+                    <div class="w-10 h-10 border-2 border-medeiros-accent flex items-center justify-center mr-3 group-hover:bg-medeiros-accent transition-colors">
+                        <span class="font-display font-bold text-2xl text-medeiros-accent group-hover:text-medeiros-bg mt-1">M</span>
+                    </div>
+                    <span class="font-display font-bold text-3xl tracking-wider text-medeiros-textWhite uppercase mt-1">Medeiros Games</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-sm font-semibold text-medeiros-textMuted hover:text-medeiros-textWhite uppercase tracking-widest transition-colors">Projects</a>
+                    <a href="#support" class="text-sm font-semibold text-medeiros-textMuted hover:text-medeiros-textWhite uppercase tracking-widest transition-colors">Support</a>
+                    <a href="#support" class="px-6 py-2 bg-medeiros-accent text-medeiros-bg text-sm font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                        Connect
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-medeiros-textMuted hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-medeiros-card border-b border-medeiros-border">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#home" class="block px-4 py-3 text-base font-semibold text-medeiros-textMuted hover:text-white uppercase tracking-widest border-b border-medeiros-border/50">Projects</a>
+                <a href="#support" class="block px-4 py-3 text-base font-semibold text-medeiros-textMuted hover:text-white uppercase tracking-widest border-b border-medeiros-border/50">Support</a>
+                <a href="#privacy" class="block px-4 py-3 text-base font-semibold text-medeiros-textMuted hover:text-white uppercase tracking-widest">Privacy</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow pt-20">
+        
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="view-home" class="spa-view active">
+            <!-- Hero -->
+            <section class="py-24 lg:py-32 px-6 relative overflow-hidden">
+                <div class="max-w-5xl mx-auto text-center relative z-10">
+                    <div class="inline-flex items-center px-4 py-1.5 border border-medeiros-accent/30 bg-medeiros-accent/10 text-medeiros-accent text-xs font-bold tracking-widest uppercase mb-8">
+                        HQ: Barcelona, Spain
+                    </div>
+                    <h1 class="font-display font-bold text-6xl md:text-8xl text-white leading-none mb-6 uppercase tracking-wide">
+                        Forging Digital <br/>
+                        <span class="text-medeiros-accent">Realities.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-medeiros-textMuted max-w-2xl mx-auto font-light leading-relaxed">
+                        MEDEIROS GAMES S.L. is an independent tech studio specializing in high-performance interactive experiences and mobile rendering engines for iOS.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Projects -->
+            <section class="py-20 px-6 border-t border-medeiros-border bg-medeiros-card/50">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-16 text-center md:text-left">
+                        <h2 class="font-display text-4xl font-bold text-white mb-2 uppercase tracking-wider">Active Pipeline</h2>
+                        <p class="text-medeiros-textMuted">Proprietary applications currently in development phases.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- App 1 -->
+                        <div class="bg-medeiros-bg border border-medeiros-border p-8 hover:border-medeiros-accent/50 transition-colors group">
+                            <div class="w-16 h-16 bg-medeiros-card border border-medeiros-border flex items-center justify-center text-medeiros-accent mb-8 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                            </div>
+                            <h3 class="font-display text-3xl font-bold text-white mb-3 uppercase tracking-wider">MetalCore Tactics</h3>
+                            <div class="inline-flex items-center px-3 py-1 bg-medeiros-card text-medeiros-textMuted border border-medeiros-border text-xs font-bold uppercase tracking-widest mb-5">
+                                <span class="w-2 h-2 rounded-sm bg-yellow-500 mr-2"></span> Beta Phase
+                            </div>
+                            <p class="text-medeiros-textMuted text-sm leading-relaxed">
+                                A tactical strategy game leveraging Apple's Metal framework for rendering massive dynamic environments and complex unit AI natively on iPadOS.
+                            </p>
+                        </div>
+
+                        <!-- App 2 -->
+                        <div class="bg-medeiros-bg border border-medeiros-border p-8 hover:border-medeiros-accent/50 transition-colors group">
+                            <div class="w-16 h-16 bg-medeiros-card border border-medeiros-border flex items-center justify-center text-medeiros-accent mb-8 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                            <h3 class="font-display text-3xl font-bold text-white mb-3 uppercase tracking-wider">Medeiros Engine</h3>
+                            <div class="inline-flex items-center px-3 py-1 bg-medeiros-card text-medeiros-textMuted border border-medeiros-border text-xs font-bold uppercase tracking-widest mb-5">
+                                <span class="w-2 h-2 rounded-sm bg-blue-500 mr-2"></span> In Engineering
+                            </div>
+                            <p class="text-medeiros-textMuted text-sm leading-relaxed">
+                                Our bespoke iOS game engine focused on streamlining physics calculations and 2D sprite batching to maximize mobile battery efficiency during gameplay.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Corporate Registry -->
+            <section class="py-20 px-6 border-t border-medeiros-border">
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-10 text-center md:text-left">
+                        <h2 class="font-display text-4xl font-bold text-white mb-2 uppercase tracking-wider">Corporate Registry</h2>
+                        <p class="text-medeiros-textMuted text-sm">Official verification data.</p>
+                    </div>
+
+                    <div class="bg-medeiros-card border border-medeiros-border p-8 md:p-12 relative overflow-hidden">
+                        <!-- Decorative corners -->
+                        <div class="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-medeiros-accent/30 pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-medeiros-accent/30 pointer-events-none"></div>
+
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 pb-8 border-b border-medeiros-border">
+                            <div>
+                                <p class="text-xs font-bold text-medeiros-accent uppercase tracking-widest mb-2">Registered Entity</p>
+                                <h3 class="text-3xl md:text-4xl font-display font-bold text-white tracking-widest uppercase">MEDEIROS GAMES S.L.</h3>
+                            </div>
+                            <div class="mt-6 md:mt-0">
+                                <div class="px-5 py-2 bg-green-900/20 border border-green-500/30 text-green-400 text-xs font-bold uppercase tracking-widest flex items-center">
+                                    <span class="w-2 h-2 bg-green-500 mr-3 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span> Active Status
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div>
+                                <p class="text-xs font-bold text-medeiros-textMuted uppercase tracking-widest mb-3">D-U-N-S® Number</p>
+                                <p class="text-xl font-mono text-white font-medium bg-medeiros-bg inline-block px-5 py-2 border border-medeiros-border">374017559</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-medeiros-textMuted uppercase tracking-widest mb-3">Headquarters Address</p>
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 text-medeiros-accent mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <p class="text-base text-white leading-relaxed font-medium">
+                                        CALLE METAL·LURGIA 38, P. 4<br>
+                                        BARCELONA, 08038<br>
+                                        Spain
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== SUPPORT VIEW ==================== -->
+        <div id="view-support" class="spa-view pt-12 pb-24 px-6">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="font-display text-5xl font-bold text-white mb-4 uppercase tracking-wider">Support Terminal</h1>
+                    <p class="text-medeiros-textMuted">Contact engineering for beta access, bug reports, or business relations.</p>
+                </div>
+
+                <div class="bg-medeiros-card border border-medeiros-border p-8 md:p-10">
+                    <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-medeiros-textMuted uppercase tracking-widest mb-2">User Name</label>
+                                <input type="text" name="name" required class="form-input" placeholder="Enter name">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-medeiros-textMuted uppercase tracking-widest mb-2">Comms (Email)</label>
+                                <input type="email" name="email" required class="form-input" placeholder="email@domain.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-medeiros-textMuted uppercase tracking-widest mb-2">Subject Classification</label>
+                            <select name="subject" class="form-input appearance-none">
+                                <option>MetalCore Beta Request</option>
+                                <option>Technical Support</option>
+                                <option>Corporate Inquiry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-medeiros-textMuted uppercase tracking-widest mb-2">Transmission</label>
+                            <textarea name="message" rows="6" required class="form-input resize-none" placeholder="Input data here..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-medeiros-accent text-medeiros-bg font-bold tracking-widest uppercase hover:bg-white transition-colors">
+                            Initialize Upload
+                        </button>
+                    </form>
+                </div>
+
+                <div class="mt-12 text-center p-6 border border-medeiros-border bg-medeiros-bg">
+                    <p class="text-medeiros-textMuted text-sm font-semibold uppercase tracking-widest mb-2">Direct Link</p>
+                    <a href="mailto:admin@medeirosgames.xyz" class="text-medeiros-accent hover:text-white transition-colors text-xl font-display tracking-widest">admin@medeirosgames.xyz</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PRIVACY VIEW ==================== -->
+        <div id="view-privacy" class="spa-view pt-12 pb-24 px-6">
+            <div class="max-w-3xl mx-auto bg-medeiros-card border border-medeiros-border p-8 md:p-14">
+                <h1 class="font-display text-4xl font-bold text-white mb-2 uppercase tracking-wider">Privacy Policy</h1>
+                <p class="text-medeiros-accent text-xs font-bold tracking-widest uppercase mb-10 pb-6 border-b border-medeiros-border">Effective Date: May 10, 2024</p>
+                
+                <div class="space-y-8 text-medeiros-textMuted text-sm leading-relaxed">
+                    <p><strong>MEDEIROS GAMES S.L.</strong> strictly enforces data protection standards. This document outlines telemetry and privacy protocols for our digital ecosystems.</p>
+                    
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-widest">1. Diagnostic Telemetry</h3>
+                        <p>We do not harvest personally identifiable information implicitly. Our applications collect localized crash logs and hardware performance metrics strictly to optimize our engine across varying iOS devices.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-widest">2. Information Processing</h3>
+                        <p>Data provided explicitly through support terminals or beta program forms is processed exclusively to deliver technical assistance and distribute pre-release software.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-widest">3. GDPR Framework</h3>
+                        <p>Registered and operating in Barcelona, Spain, we are fully compliant with the General Data Protection Regulation (GDPR). Users maintain absolute control over their data and may request deletion via direct contact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TERMS VIEW ==================== -->
+        <div id="view-terms" class="spa-view pt-12 pb-24 px-6">
+            <div class="max-w-3xl mx-auto bg-medeiros-card border border-medeiros-border p-8 md:p-14">
+                <h1 class="font-display text-4xl font-bold text-white mb-2 uppercase tracking-wider">Terms of Service</h1>
+                <p class="text-medeiros-accent text-xs font-bold tracking-widest uppercase mb-10 pb-6 border-b border-medeiros-border">Last Updated: May 10, 2024</p>
+                
+                <div class="space-y-8 text-medeiros-textMuted text-sm leading-relaxed">
+                    <p>Accessing the software and digital architecture of <strong>MEDEIROS GAMES S.L.</strong> implies full compliance with the following operational conditions.</p>
+                    
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-widest">1. Software Licensing</h3>
+                        <p>We grant a provisional, non-exclusive license for personal interaction with our digital products. Decompiling, reverse engineering, or commercial extraction of our proprietary assets is strictly prohibited.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-widest">2. Beta Software Provision</h3>
+                        <p>Projects classified as "Beta" or "In Engineering" are distributed as-is. MEDEIROS GAMES S.L. assumes no responsibility for hardware instability, battery degradation, or data loss occurring during the testing of unoptimized software.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-widest">3. Legal Jurisdiction</h3>
+                        <p>These protocols are governed by the laws of Spain. Any legal arbitration or dispute shall fall under the exclusive jurisdiction of the courts located in Barcelona.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-medeiros-border bg-medeiros-bg px-6 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <span class="font-display font-bold text-xl text-white uppercase tracking-widest block mb-2">MEDEIROS GAMES S.L.</span>
+                <span class="text-medeiros-textMuted font-mono text-xs">&copy; 2024-2026. ALL RIGHTS RESERVED.</span>
+            </div>
+            <div class="flex space-x-8">
+                <a href="#privacy" class="text-medeiros-textMuted hover:text-white font-bold uppercase tracking-widest transition-colors">Privacy</a>
+                <a href="#terms" class="text-medeiros-textMuted hover:text-white font-bold uppercase tracking-widest transition-colors">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SPA Router Script -->
+    <script>
+        function route() {
+            let hash = window.location.hash || '#home';
+            if (hash === '#' || hash === '') hash = '#home';
+
+            document.querySelectorAll('.spa-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            const targetView = document.querySelector('#view-' + hash.substring(1));
+            if (targetView) {
+                targetView.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                document.querySelector('#view-home').classList.add('active');
+                window.location.hash = '#home';
+            }
+        }
+
+        window.addEventListener('hashchange', route);
+        window.addEventListener('DOMContentLoaded', route);
+
+        const btn = document.getElementById('mobileMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
